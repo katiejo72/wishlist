@@ -1,0 +1,13 @@
+Notes For Later
+---------------
+
+- CSS
+  * update with more of my own personal styling
+
+- Validation
+  * see Rails API for more options
+  * be more thorough, particularly with email format validation
+  * email validation - existing standard?
+
+- Password
+  * add further constraints: i.e. mixed case, special chars, etc.
