@@ -9,6 +9,28 @@ describe "UserPages" do
 
   	it { should have_content('Sign Up') }
   	it { should have_title(full_title('Sign Up')) }
+
+  	let(:submit) { "Create my account" }
+
+  	describe "with invalid information" do
+  		it "should not create a user" do
+  			expect { click_button submit }.not_to change(User, :count)
+  		end
+  	end
+
+  	describe "with valid information" do
+  		before do
+  			fill_in "First Name",			with: "Example"
+  			fill_in "Last Name",			with: "User"
+  			fill_in "Email",					with: "user@example.com"
+  			fill_in "Password",				with: "foobarbaz"
+  			fill_in "Confirmation",		with: "foobarbaz"
+  		end
+  	
+  		it "should create a user" do
+  			expect { click_button submit }.to change(User, :count).by(1)
+  		end
+  	end
   end
 
   describe "profile page" do
