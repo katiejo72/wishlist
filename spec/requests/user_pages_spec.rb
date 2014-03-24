@@ -9,8 +9,20 @@ describe "UserPages" do
 
   	it { should have_content('Sign Up') }
   	it { should have_title(full_title('Sign Up')) }
+  end
 
-  	let(:submit) { "Create my account" }
+  describe "profile page" do
+  	let(:user) { FactoryGirl.create(:user) }
+  	before { visit user_path(user) }
+
+  	it { should have_content(user.fname + ' ' + user.lname) }
+  	it { should have_title(user.fname + ' ' + user.lname) }
+  end
+
+  describe "signup" do
+  	before { visit signup_path }
+
+  	let(:submit) { "Allons-y" }
 
   	describe "with invalid information" do
   		it "should not create a user" do
@@ -20,24 +32,16 @@ describe "UserPages" do
 
   	describe "with valid information" do
   		before do
-  			fill_in "First Name",			with: "Example"
-  			fill_in "Last Name",			with: "User"
+  			fill_in "Fname",			with: "Example"
+  			fill_in "Lname",			with: "User"
   			fill_in "Email",					with: "user@example.com"
   			fill_in "Password",				with: "foobarbaz"
-  			fill_in "Confirmation",		with: "foobarbaz"
+  			fill_in "Password confirmation",		with: "foobarbaz"
   		end
   	
   		it "should create a user" do
   			expect { click_button submit }.to change(User, :count).by(1)
   		end
   	end
-  end
-
-  describe "profile page" do
-  	let(:user) { FactoryGirl.create(:user) }
-  	before { visit user_path(user) }
-
-  	it { should have_content(user.fname + ' ' + user.lname) }
-  	it { should have_title(user.fname + ' ' + user.lname) }
   end
 end
