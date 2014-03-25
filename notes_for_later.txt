@@ -11,3 +11,10 @@ Notes For Later
 
 - Password
   * add further constraints: i.e. mixed case, special chars, etc.
+    - we like secure passwords!
+
+- DB
+  * if you haven't done it yet, which you really should have, but
+    if you haven't - change fname and lname to first_name and
+    last_name
+    ~ make sure it gets changed EVERYWHERE
