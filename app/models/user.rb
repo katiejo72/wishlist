@@ -9,5 +9,7 @@ class User < ActiveRecord::Base
 	                  uniqueness: { case_sensitive: false }
 
   has_secure_password
-  validates :password, length: { minimum: 8 }
+  validates :password, length: { minimum: 8 }, confirmation: true
+
+  validates :password_confirmation, presence: true
 end
