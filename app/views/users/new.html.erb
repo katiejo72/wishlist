@@ -1,4 +1,4 @@
-<% provide(:title, 'Sign Up') %>
+<% provide(:title, "Sign Up") %>
 <h1>Sign Up</h1>
 
 <div class="row">
@@ -6,10 +6,10 @@
 		<%= form_for(@user) do |f| %>
 			<%= render 'shared/error_messages' %>
 
-			<%= f.label :first_name %>
+			<%= f.label :first_name, "First Name" %>
 			<%= f.text_field :fname %>
 
-			<%= f.label :last_name %>
+			<%= f.label :last_name, "Last Name" %>
 			<%= f.text_field :lname %>
 
 			<%= f.label :email %>
@@ -18,7 +18,7 @@
 			<%= f.label :password %>
 			<%= f.password_field :password %>
 
-			<%= f.label :password_confirmation %>
+			<%= f.label :password_confirmation, "Confirm Password" %>
 			<%= f.password_field :password_confirmation %>
 
 			<%= f.submit "Allons-y!", class: "btn btn-medium btn-success" %>
