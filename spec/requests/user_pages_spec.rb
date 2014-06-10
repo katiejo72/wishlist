@@ -26,6 +26,30 @@ describe "User pages" do
         end
       end
     end
+
+    describe "delete links" do
+      it { should_not have_link('delete') }
+
+      describe "as an admin user" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before do
+          sign_in admin
+          visit users_path
+        end
+
+        it { should have_link('exterminate', href: user_path(User.first)) }
+        it "should be able to delete another user" do
+          expect do
+            click_link('exterminate', match: :first)
+          end.to change(User, :count).by(-1)
+        end
+
+        it { should_not have_link('exterminate', href: user_path(admin)) }
+        it "should not be able to delete itself" do
+          expect { delete user_path(admin) }.not_to change(User, :count)
+        end
+      end
+    end
   end
 
   describe "signup page" do
@@ -132,6 +156,20 @@ describe "User pages" do
       specify { expect(user.reload.fname).to eq new_fname }
       specify { expect(user.reload.lname).to eq new_lname }
       specify { expect(user.reload.email).to eq new_email }
+    end
+
+    describe "forbidden attributes" do
+      let(:params) do
+        { user: { admin: true, password: user.password, 
+                  password_confirmation: user.password } }
+      end
+
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+
+      specify { expect(user.reload).not_to be_admin }
     end
   end
 end

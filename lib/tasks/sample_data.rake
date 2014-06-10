@@ -1,11 +1,12 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    User.create!(fname: "Example",
-                 lname: "User",
-                 email: "example@railstutorial.org",
+    admin = User.create!(fname: "Katie",
+                 lname: "Arbuckle",
+                 email: "katiejo72@gmail.com",
                  password: "foobarbaz",
-                 password_confirmation: "foobarbaz")
+                 password_confirmation: "foobarbaz",
+                 admin: true)
     99.times do |n|
       fname  = Faker::Name.first_name
       lname = Faker::Name.last_name
